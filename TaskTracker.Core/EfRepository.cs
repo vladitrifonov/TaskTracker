@@ -12,37 +12,37 @@ namespace TaskTracker.Core
 {
     public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly IFactory<TaskTrackerDbContex> _dbFactory;
+        private readonly IFactory<TaskTrackerDbContext> _dbFactory;
 
-        public EfRepository(IFactory<TaskTrackerDbContex> dbFactory)
+        public EfRepository(IFactory<TaskTrackerDbContext> dbFactory)
         {
             _dbFactory = dbFactory;
         }
 
         public async Task<List<T>> ListAsync()
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             return await dbContext.Set<T>().ToListAsync();
         }
 
         public Task<IEnumerable<T>> GetByPredicateAsync(Func<T, bool> predicaste)
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             return Task.FromResult(dbContext.Set<T>().Where(predicaste).AsEnumerable());
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             return await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<T> AddAsync(T entity)
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             await dbContext.Set<T>().AddAsync(entity);
             await dbContext.SaveChangesAsync();
@@ -52,7 +52,7 @@ namespace TaskTracker.Core
 
         public async Task<T> UpdateAsync(T entity)
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             dbContext.Entry(entity).State = EntityState.Modified;
             await dbContext.SaveChangesAsync();
@@ -62,7 +62,7 @@ namespace TaskTracker.Core
 
         public async Task DeleteAsync(T entity)
         {
-            using TaskTrackerDbContex dbContext = _dbFactory.Create();
+            using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
             dbContext.Set<T>().Remove(entity);
             await dbContext.SaveChangesAsync();

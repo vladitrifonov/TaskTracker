@@ -2,9 +2,8 @@
 
 namespace TaskTracker.Contracts.DataTypes
 {
-    public class Project
+    public class Project : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset CompletionDate { get; set; }

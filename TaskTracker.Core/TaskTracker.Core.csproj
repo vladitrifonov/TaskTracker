@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TaskTracker.Contracts\TaskTracker.Contracts.csproj" />
     <ProjectReference Include="..\TaskTracker.Storage\TaskTracker.Storage.csproj" />
   </ItemGroup>

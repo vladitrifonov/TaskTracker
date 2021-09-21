@@ -1,10 +1,8 @@
-﻿using TaskTracker.Core.Dto;
-
-namespace TaskTracker.Contracts.DataTypes
+﻿namespace TaskTracker.Contracts.DataTypes
 {
-    public class Task
+    public class Task : BaseEntity
     {
-        public int Id { get; set; }
+        public int ProjectId { get; set; }
         public string Name { get; set; }
         public TaskStatus Status { get; set; }
         public string Description { get; set; }

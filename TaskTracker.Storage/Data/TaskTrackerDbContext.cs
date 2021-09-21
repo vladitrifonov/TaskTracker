@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskTracker.Core.Entitiies;
+using System.Threading.Tasks;
+using TaskTracker.Contracts.DataTypes;
+using Task = TaskTracker.Contracts.DataTypes.Task;
 
 namespace TaskTracker.Storage.Data
 {
-    public class TaskTrackerDbContex : DbContext
+    public class TaskTrackerDbContext : DbContext
     {
-        public TaskTrackerDbContex(DbContextOptions<TaskTrackerDbContex> options) : base(options)
+        public TaskTrackerDbContext(DbContextOptions<TaskTrackerDbContext> options) : base(options)
         {
         }
 
