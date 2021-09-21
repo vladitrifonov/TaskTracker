@@ -1,36 +1,95 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TaskTracker.Storage.Contracts;
-using TaskTracker.Storage.Entities;
+
 
 namespace TaskTracker.Storage.Repositories
 {
-    public class ProjectRepository : IRepository<Project>
+    public class ProjectRepository : IRepository<Entities.Project>
     {
-        private readonly TaskTrackerDbContext _dbContext;
-        public ProjectRepository(TaskTrackerDbContext dbContext)
+        private readonly IFactory<TaskTrackerDbContext> _factory;
+        public ProjectRepository(IFactory<TaskTrackerDbContext> factory)
         {
-            _dbContext = dbContext;
+            _factory = factory;
         }
-        public Task<IEnumerable<Project>> GetAll()
+        public Task<IEnumerable<Entities.Project>> GetAll()
         {
-            throw new System.NotImplementedException();
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            return Task.FromResult(dbContext.Projects.AsEnumerable());
         }
-        public Task<Project> Get(int id)
+        public Task<IEnumerable<Entities.Project>> Find(Func<Entities.Project, bool> predicate)
         {
-            throw new System.NotImplementedException();
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            return Task.FromResult(dbContext.Projects.Where(predicate).AsEnumerable());
         }
-        public Task<bool> Create(Project item)
+
+        public Task<Entities.Project> Get(int id)
         {
-            throw new System.NotImplementedException();
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            return Task.FromResult(dbContext.Projects.FirstOrDefault(x => x.Id == id));
         }
-        public Task<bool> Update(Project item)
+        public async Task<bool> Create(Entities.Project item)
         {
-            throw new System.NotImplementedException();
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            dbContext.Projects.Add(item);
+
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //place for log
+                return false;
+            }
         }
-        public Task<bool> Delete(int id)
+        public async Task<bool> Update(Entities.Project item)
         {
-            throw new System.NotImplementedException();
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            dbContext.Projects.Update(item);
+
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //place for log
+                return false;
+            }
+        }
+        public async Task<bool> Delete(int id)
+        {
+            using TaskTrackerDbContext dbContext = _factory.Create();
+
+            Entities.Project entity = dbContext.Projects.FirstOrDefault(x => x.Id == id);
+
+            if(entity == null)
+            {
+                return false;
+            }
+
+            dbContext.Projects.Remove(entity);
+
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                //place for log
+                return false;
+            }
         }
     }
 }

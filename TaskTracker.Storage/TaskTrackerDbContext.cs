@@ -16,6 +16,6 @@ namespace TaskTracker.Storage
         }
 
         public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }       
+        public virtual DbSet<Project> Projects { get; set; }
     }
 }
