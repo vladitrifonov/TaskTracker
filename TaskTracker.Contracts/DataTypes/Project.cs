@@ -1,7 +1,6 @@
 ﻿using System;
-using TaskTracker.Core.Dto;
 
-namespace TaskTracker.Host.Models
+namespace TaskTracker.Contracts.DataTypes
 {
     public class Project
     {

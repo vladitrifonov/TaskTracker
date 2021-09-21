@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using TaskTracker.Core.Dto;
-using TaskTracker.Host.Models;
+using TaskTracker.Contracts.DataTypes;
 
 namespace TaskTracker.Host.MapperConfiguration
 {
@@ -8,11 +7,8 @@ namespace TaskTracker.Host.MapperConfiguration
     {
         public AutomapperProfile()
         {
-            CreateMap<Storage.Entities.Project, ProjectDto>().ReverseMap();
-            CreateMap<Storage.Entities.Task, TaskDto>().ReverseMap();
-
-            CreateMap<ProjectDto, Project>().ReverseMap();
-            CreateMap<TaskDto, Task>().ReverseMap();
+            CreateMap<Core.Entitiies.Project, Project>().ReverseMap();
+            CreateMap<Core.Entitiies.Task, Task>().ReverseMap();
         }
     }
 }
