@@ -29,7 +29,7 @@ namespace TaskTracker.Host.Controllers
         [HttpGet]
         public Task<PartialViewResult> Create()
         {
-            return System.Threading.Tasks.Task.FromResult(PartialView("Create", new Contracts.DataTypes.Task()));
+            return Task.FromResult(PartialView("Create", new Contracts.DataTypes.Task()));
         }
                
         [HttpGet]
