@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using TaskTracker.Contracts.DataTypes;
-using Task = TaskTracker.Contracts.DataTypes.Task;
+using System.Reflection;
+using TaskTracker.Contracts.Entities;
 
 namespace TaskTracker.Storage.Data
 {
@@ -13,16 +12,12 @@ namespace TaskTracker.Storage.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Task>().HasKey(e => e.Id);
-            modelBuilder.Entity<Task>().Property(x => x.Name).HasMaxLength(50).IsRequired();
-
-            modelBuilder.Entity<Project>().HasKey(e => e.Id);
-            modelBuilder.Entity<Project>().Property(x => x.Name).HasMaxLength(50).IsRequired();
         }
 
-        public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<TaskEntity> Tasks { get; set; }
+        public virtual DbSet<ProjectEntity> Projects { get; set; }
     }
 }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskTracker.Contracts\TaskTracker.Contracts.csproj" />
+    <ProjectReference Include="..\TaskTracker.Contracts\TaskTracker.Domain.csproj" />
     <ProjectReference Include="..\TaskTracker.Storage\TaskTracker.Storage.csproj" />
   </ItemGroup>
 

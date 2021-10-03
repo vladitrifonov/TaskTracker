@@ -1,7 +1,7 @@
 ﻿using System;
-using TaskTracker.Contracts.Contracts;
+using TaskTracker.Domain.Contracts;
 
-namespace TaskTracker.Core
+namespace TaskTracker.Application
 {
     public class DelegatingFactory<T> : IFactory<T>
     {

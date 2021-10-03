@@ -1,6 +1,8 @@
-﻿namespace TaskTracker.Contracts.DataTypes
+﻿using TaskTracker.Contracts.DataTypes;
+
+namespace TaskTracker.Contracts.Entities
 {
-    public class Task : BaseEntity
+    public class TaskEntity : BaseEntity
     {
         public int ProjectId { get; set; }
         public string Name { get; set; }

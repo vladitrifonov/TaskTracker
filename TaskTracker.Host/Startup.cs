@@ -1,4 +1,3 @@
-using AspNetCoreHero.ToastNotification;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskTracker.Contracts.Contracts;
-using TaskTracker.Contracts.DataTypes;
-using TaskTracker.Core;
 using TaskTracker.Storage.Data;
-using TaskTracker.Host.Common;
+using TaskTracker.Contracts.Entities;
+using TaskTracker.Domain.Contracts;
+using TaskTracker.Application;
+using askTracker.Host.Common;
+using AspNetCoreHero.ToastNotification;
 
 namespace TaskTracker.Host
 {
@@ -33,11 +34,9 @@ namespace TaskTracker.Host
                        
             services.AddTransient<IFactory<TaskTrackerDbContext>>(x => new DelegatingFactory<TaskTrackerDbContext>(() => new TaskTrackerDbContext(taskTrackerDbContexOptionsBuilder.Options)));
 
-            services.AddTransient<IRepository<Project>, EfRepository<Project>>();
+            services.AddTransient<IRepository<ProjectEntity>, EfRepository<ProjectEntity>>();
 
-            services.AddTransient<IRepository<Project>, EfRepository<Project>>();
-
-            services.AddTransient<IRepository<Task>, EfRepository<Task>>();
+            services.AddTransient<IRepository<TaskEntity>, EfRepository<TaskEntity>>();
 
             services.AddToastify(config => { config.DurationInSeconds = 5; config.Position = Position.Right; config.Gravity = Gravity.Bottom; });
 

@@ -1,4 +1,4 @@
-﻿namespace TaskTracker.Contracts.Contracts
+﻿namespace TaskTracker.Domain.Contracts
 {
     public interface INotification
     {

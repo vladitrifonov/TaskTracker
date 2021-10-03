@@ -1,4 +1,4 @@
-﻿namespace TaskTracker.Host.Common
+﻿namespace TaskTracker.Application.Helpers
 {
     public class TextHelper
     {

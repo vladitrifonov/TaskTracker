@@ -1,8 +1,9 @@
 ﻿using System;
+using TaskTracker.Contracts.DataTypes;
 
-namespace TaskTracker.Contracts.DataTypes
+namespace TaskTracker.Contracts.Entities
 {
-    public class Project : BaseEntity
+    public class ProjectEntity : BaseEntity
     {
         public string Name { get; set; }
         public DateTimeOffset StartDate { get; set; }

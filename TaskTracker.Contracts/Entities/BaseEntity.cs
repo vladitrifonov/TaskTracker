@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TaskTracker.Contracts.DataTypes
+namespace TaskTracker.Contracts.Entities
 {
     public abstract class BaseEntity
     {

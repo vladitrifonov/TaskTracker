@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskTracker.Contracts.Contracts;
-using TaskTracker.Contracts.DataTypes;
+using TaskTracker.Contracts.Entities;
+using TaskTracker.Domain.Contracts;
 using TaskTracker.Storage.Data;
 using Task = System.Threading.Tasks.Task;
 
-namespace TaskTracker.Core
+namespace TaskTracker.Application
 {
     public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {

@@ -2,17 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TaskTracker.Application.Helpers;
 using TaskTracker.Contracts.Contracts;
-using TaskTracker.Host.Common;
+using TaskTracker.Contracts.Entities;
+using TaskTracker.Domain.Contracts;
 
 namespace TaskTracker.Host.Controllers
 {
     public class TaskController : Controller
     {        
-        private readonly IRepository<Contracts.DataTypes.Task> _taskRepository;
+        private readonly IRepository<TaskEntity> _taskRepository;
         private readonly INotification _notifyService;
 
-        public TaskController(IRepository<Contracts.DataTypes.Task> taskRepository, INotification notifyService)
+        public TaskController(IRepository<TaskEntity> taskRepository, INotification notifyService)
         {
             _taskRepository = taskRepository;
             _notifyService = notifyService;
@@ -21,7 +23,7 @@ namespace TaskTracker.Host.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           List<Contracts.DataTypes.Task> tasks = await _taskRepository.ListAsync();
+           List<TaskEntity> tasks = await _taskRepository.ListAsync();
 
             return View(tasks);
         }
@@ -29,7 +31,7 @@ namespace TaskTracker.Host.Controllers
         [HttpGet]
         public Task<PartialViewResult> Create()
         {
-            return Task.FromResult(PartialView("Create", new Contracts.DataTypes.Task()));
+            return Task.FromResult(PartialView("Create", new TaskEntity()));
         }
                
         [HttpGet]
@@ -39,13 +41,13 @@ namespace TaskTracker.Host.Controllers
         }
               
         [HttpPost]
-        public async Task<IActionResult> Create(Contracts.DataTypes.Task model)
+        public async Task<IActionResult> Create(TaskEntity model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    List<Contracts.DataTypes.Task> tasks = await _taskRepository.ListAsync();
+                    List<TaskEntity> tasks = await _taskRepository.ListAsync();
 
                     await _taskRepository.AddAsync(model);
                     _notifyService.Success(TextHelper.Created(model.Name));
@@ -64,7 +66,7 @@ namespace TaskTracker.Host.Controllers
         }
                
         [HttpPost]
-        public async Task<IActionResult> Edit(Contracts.DataTypes.Task model)
+        public async Task<IActionResult> Edit(TaskEntity model)
         {
             if (ModelState.IsValid)
             {
@@ -91,14 +93,15 @@ namespace TaskTracker.Host.Controllers
         {
             try
             {
-                await _taskRepository.DeleteAsync(id);
-                _notifyService.Success(TextHelper.Deleted(nameof(Contracts.DataTypes.Task)));
+                TaskEntity task = await _taskRepository.GetByIdAsync(id);
+                await _taskRepository.DeleteAsync(task);
+                _notifyService.Success(TextHelper.Deleted(nameof(TaskEntity)));
 
                 return Json(new { succeeded = true });
             }
             catch (Exception)
             {
-                _notifyService.Error(TextHelper.ErrorDeleting(nameof(Contracts.DataTypes.Task)));
+                _notifyService.Error(TextHelper.ErrorDeleting(nameof(TaskEntity)));
 
                 return Json(new { succeeded = true });
             }

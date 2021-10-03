@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TaskTracker.Contracts.DataTypes;
+using TaskTracker.Contracts.Entities;
 using Task = System.Threading.Tasks.Task;
 
 namespace TaskTracker.Contracts.Contracts

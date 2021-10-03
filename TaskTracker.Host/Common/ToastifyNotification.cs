@@ -1,7 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using TaskTracker.Contracts.Contracts;
+using TaskTracker.Domain.Contracts;
 
-namespace TaskTracker.Host.Common
+namespace askTracker.Host.Common
 {
     public class ToastifyNotification : INotification
     {
