@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace TaskTracker.Infrastructure.EFCore.Data
 {
@@ -7,9 +9,16 @@ namespace TaskTracker.Infrastructure.EFCore.Data
     {
         public TaskTrackerDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<TaskTrackerDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=TaskTrackerDB;Integrated Security=true");
+            var builder = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())
+                       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                       .AddEnvironmentVariables();
 
+            IConfigurationRoot configuration = builder.Build();
+            string connectionString = configuration.GetConnectionString(nameof(TaskTrackerDbContext));
+            var optionsBuilder = new DbContextOptionsBuilder<TaskTrackerDbContext>();
+            optionsBuilder.UseSqlServer(connectionString);
+        
             return new TaskTrackerDbContext(optionsBuilder.Options);
         }
     }
