@@ -1,4 +1,4 @@
-﻿@model TaskTracker.Application.Projects.Commands.UpdateProjectCommand
+﻿@model TaskTracker.Application.Core.Projects.Commands.UpdateProjectCommand
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,38 +11,38 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectViewModel.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.ViewModel.Name, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.ProjectViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProjectViewModel.Name, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ViewModel.Name, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.ViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.ProjectViewModel.Status, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProjectViewModel.Status, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ViewModel.Status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ViewModel.Status, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectViewModel.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.ViewModel.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.ProjectViewModel.Priority, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProjectViewModel.Priority, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ViewModel.Priority, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ViewModel.Priority, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectViewModel.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.ViewModel.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.ProjectViewModel.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProjectViewModel.StartDate, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ViewModel.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ViewModel.StartDate, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectViewModel.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.ViewModel.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.ProjectViewModel.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ProjectViewModel.CompletionDate, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ViewModel.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ViewModel.CompletionDate, "", new { @class = "text-danger" })
         </div>
     </div>
     @*<div class="form-group">

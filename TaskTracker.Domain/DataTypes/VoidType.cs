@@ -6,5 +6,5 @@
     public readonly struct VoidType
     {
         public static readonly VoidType Instance = new VoidType();
-    }
+    }    
 }

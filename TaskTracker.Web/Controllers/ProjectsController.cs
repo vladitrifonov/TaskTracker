@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TaskTracker.Application.Common.ViewModels;
-using TaskTracker.Application.Projects.Commands;
-using TaskTracker.Application.Projects.Queries;
+using TaskTracker.Application.Core.Projects.Commands;
+using TaskTracker.Application.Core.Projects.Queries;
 
 namespace TaskTracker.Web.Controllers
 {
@@ -40,7 +40,7 @@ namespace TaskTracker.Web.Controllers
         {
             ProjectViewModel project = await _mediator.Send(new GetProjectQuery { Id = id });
 
-            return PartialView(new UpdateProjectCommand { Id = id, ProjectViewModel = project });
+            return PartialView(new UpdateProjectCommand { Id = id, ViewModel = project });
         }
 
         [HttpPost]

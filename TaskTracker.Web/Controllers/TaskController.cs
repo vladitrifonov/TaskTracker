@@ -1,103 +1,68 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using TaskTracker.Application.Common.ViewModels;
+using TaskTracker.Application.Core.Projects.Commands;
+using TaskTracker.Application.Core.Projects.Queries;
+using TaskTracker.Application.Core.Tasks.Commands;
 
 namespace TaskTracker.Web.Controllers
 {
     public class TaskController : Controller
-    {        
-        //private readonly IRepository<TaskEntity> _taskRepository;
-        //private readonly INotification _notifyService;
+    {
+        private readonly IMediator _mediator;
+        public TaskController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        //public TaskController(IRepository<TaskEntity> taskRepository, INotification notifyService)
-        //{
-        //    _taskRepository = taskRepository;
-        //    _notifyService = notifyService;
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _mediator.Send(new GetTasksQuery()));
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Index()
-        //{
-        //   IEnumerable<TaskEntity> tasks = await _taskRepository.GetAsync();
+        [HttpGet]
+        public PartialViewResult Create()
+        {
+            return PartialView("Create", new CreateTaskCommand());
+        }
 
-        //    return View(tasks);
-        //}
-               
-        //[HttpGet]
-        //public Task<PartialViewResult> Create()
-        //{
-        //    return Task.FromResult(PartialView("Create", new TaskEntity()));
-        //}
-               
-        //[HttpGet]
-        //public async Task<PartialViewResult> Edit(int id)
-        //{
-        //    return PartialView("Edit", await _taskRepository.GetByIdAsync(id));
-        //}
-              
-        //[HttpPost]
-        //public async Task<IActionResult> Create(TaskEntity model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            IEnumerable<TaskEntity> tasks = await _taskRepository.GetAsync();
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateTaskCommand command)
+        {
+            await _mediator.Send(command);
 
-        //            await _taskRepository.AddAsync(model);
-        //            _notifyService.Success(TextHelper.Created(model.Name));
+            return RedirectToAction(nameof(Index));
+        }
 
-        //            return Json(new { succeeded = true });
-        //        }
-        //        catch (Exception)
-        //        {
-        //            _notifyService.Error(TextHelper.CouldNotCreated(model.Name));
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            TaskViewModel task = await _mediator.Send(new GetTaskQuery { Id = id });
 
-        //            return Json(new { succeeded = true });
-        //        }
-        //    }
-            
-        //    return PartialView("Create", model);
-        //}
-               
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(TaskEntity model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            await _taskRepository.UpdateAsync(model);
-        //            _notifyService.Success(TextHelper.Updated(model.Name));
+            return PartialView(new UpdateTaskCommand { Id = id, ViewModel = task });
+        }
 
-        //            return Json(new { succeeded = true });
-        //        }
-        //        catch (Exception)
-        //        {
-        //            _notifyService.Error(TextHelper.CouldNotUpdated(model.Name));
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, UpdateTaskCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
 
-        //            return Json(new { succeeded = true });
-        //        }
-        //    }
+            await _mediator.Send(command);
 
-        //    return PartialView("Edit", model);
-        //}
-                
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    try
-        //    {
-        //        TaskEntity task = await _taskRepository.GetByIdAsync(id);
-        //        await _taskRepository.DeleteAsync(task);
-        //        _notifyService.Success(TextHelper.Deleted(nameof(TaskEntity)));
+            return RedirectToAction(nameof(Index));
+        }
 
-        //        return Json(new { succeeded = true });
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _notifyService.Error(TextHelper.ErrorDeleting(nameof(TaskEntity)));
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _mediator.Send(new DeleteTaskCommand { Id = id });
 
-        //        return Json(new { succeeded = true });
-        //    }
-        //}
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
