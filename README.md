@@ -1,10 +1,19 @@
 # TaskTracker
 
 todo
--validation
--restfull
--authorization
--modalpage
--tests
--validation
--notification
+
+--validation
+
+--restfull
+
+--authorization
+
+--modalpage
+
+--tests
+
+--validation
+
+--notification
+
+--roles
