@@ -6,7 +6,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaskTracker.Contracts\TaskTracker.Domain.csproj" />
-    <ProjectReference Include="..\TaskTracker.Storage\TaskTracker.Storage.csproj" />
+    <ProjectReference Include="..\TaskTracker.Infrastructure\TaskTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tasks\Commands\" />
+    <Folder Include="Tasks\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,60 @@
+﻿@model List<TaskTracker.Application.Common.ViewModels.ProjectViewModel>
+
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+@*<link href="~/css/TableCustom.css" rel="stylesheet" />*@
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="pull-right" style="padding-bottom:2em">
+        <button type="button" class="btn btn-sm btn-primary"
+                data-url="@Url.Action("Create")"
+                data-title="New Project">
+            New Project
+        </button>
+    </div>
+</div>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Status)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Priority)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CompletionDate)</th>
+            @*<th></th>
+            <th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            @Html.HiddenFor(_ => project.Id)
+        <tr>
+            <td>@Html.DisplayFor(_ => project.Name)</td>
+            <td>@Html.DisplayFor(_ => project.Status)</td>
+            <td>@Html.DisplayFor(_ => project.Priority)</td>
+            <td>@Html.DisplayFor(_ => project.StartDate)</td>
+            <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
+            <td class="text-center ">
+            <button class="btn btn-xs btn-primary glyphicon glyphicon-pencil"
+                    data-title="Editing Project"
+                    data-url="@Url.Action("Edit", new { project.Id })">
+            </button>
+        </td>
+        <td class="text-center ">
+            <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
+                    data-url="@Url.Action("Delete", new { project.Id })"
+                    data-title="@project.Name"
+                    title="Delete Project">
+            </button>
+        </td>
+        </tr>
+        }
+    </tbody>
+</table>

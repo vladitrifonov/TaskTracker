@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using TaskTracker.Contracts.Entities;
 using Task = System.Threading.Tasks.Task;
 
-namespace TaskTracker.Contracts.Contracts
+namespace TaskTracker.Domain.Contracts
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        Task<List<T>> ListAsync();
+        Task<IEnumerable<T>> GetAsync();
         Task<IEnumerable<T>> GetByPredicateAsync(Func<T, bool> predicate);
         Task<T> GetByIdAsync(int id);     
         Task<T> AddAsync(T entity);
