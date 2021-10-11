@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public class GetBasesQuery<TViewModel> : IRequest<List<TViewModel>>
+    public abstract class GetBasesQuery<TViewModel> : IRequest<List<TViewModel>>
     {
     }
 

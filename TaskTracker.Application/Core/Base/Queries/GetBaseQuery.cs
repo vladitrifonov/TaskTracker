@@ -7,7 +7,7 @@ using TaskTracker.Domain.Contracts;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public class GetBaseQuery<TViewModel> : IRequest<TViewModel>
+    public abstract class GetBaseQuery<TViewModel> : IRequest<TViewModel>
     {
         public int Id { get; set; }
     }
