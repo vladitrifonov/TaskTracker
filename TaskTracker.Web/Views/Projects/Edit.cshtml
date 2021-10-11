@@ -1,53 +1,69 @@
-﻿@model TaskTracker.Application.Common.ViewModels.ProjectViewModel
+﻿@model TaskTracker.Application.Projects.Commands.UpdateProjectCommand
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-@using (Html.BeginForm("Edit", null, FormMethod.Post, new { id = "edit-form" }))
+@using (Html.BeginForm("Update", "Projects", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CompletionDate, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectViewModel.Name, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ProjectViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectViewModel.Name, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Edit" class="btn btn-default" />
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        @Html.LabelFor(model => model.ProjectViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ProjectViewModel.Status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectViewModel.Status, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectViewModel.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ProjectViewModel.Priority, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectViewModel.Priority, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectViewModel.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ProjectViewModel.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectViewModel.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProjectViewModel.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.ProjectViewModel.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProjectViewModel.CompletionDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Language, (IList<SelectListItem>)ViewBag.Languages, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
 }
 

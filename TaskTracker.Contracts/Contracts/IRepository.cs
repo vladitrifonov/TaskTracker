@@ -11,7 +11,7 @@ namespace TaskTracker.Domain.Contracts
         Task<IEnumerable<T>> GetAsync();
         Task<IEnumerable<T>> GetByPredicateAsync(Func<T, bool> predicate);
         Task<T> GetByIdAsync(int id);     
-        Task<T> AddAsync(T entity);
+        Task<T> CreateAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
     }

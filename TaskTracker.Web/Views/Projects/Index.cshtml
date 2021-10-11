@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @*<link href="~/css/TableCustom.css" rel="stylesheet" />*@
@@ -11,11 +12,7 @@
 
 <div class="container">
     <div class="pull-right" style="padding-bottom:2em">
-        <button type="button" class="btn btn-sm btn-primary"
-                data-url="@Url.Action("Create")"
-                data-title="New Project">
-            New Project
-        </button>
+        @Html.ActionLink("Create New", "Create")
     </div>
 </div>
 
@@ -42,18 +39,11 @@
             <td>@Html.DisplayFor(_ => project.StartDate)</td>
             <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
             <td class="text-center ">
-            <button class="btn btn-xs btn-primary glyphicon glyphicon-pencil"
-                    data-title="Editing Project"
-                    data-url="@Url.Action("Edit", new { project.Id })">
-            </button>
-        </td>
-        <td class="text-center ">
-            <button class="btn btn-xs btn-danger glyphicon glyphicon-remove"
-                    data-url="@Url.Action("Delete", new { project.Id })"
-                    data-title="@project.Name"
-                    title="Delete Project">
-            </button>
-        </td>
+                @Html.ActionLink("Edit", "Edit", new {id = project.Id})
+            </td>
+            <td class="text-center ">
+                @Html.ActionLink("Delete", "Delete", new { id = project.Id })
+            </td>
         </tr>
         }
     </tbody>

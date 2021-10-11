@@ -20,5 +20,10 @@ namespace TaskTracker.Application.Common.Mapper
         {
             return _autoMapper.Map<TSource, TDest>(source);
         }
+
+        public TDest Map<TSource, TDest>(TSource source, TDest destination)
+        {
+            return _autoMapper.Map(source, destination);
+        }
     }
 }

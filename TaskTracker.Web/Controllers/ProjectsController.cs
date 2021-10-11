@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TaskTracker.Application.Projects.Commands;
 using TaskTracker.Application.Projects.Queries;
+using TaskTracker.Application.Common.ViewModels;
 
 namespace TaskTracker.Web.Controllers
 {
@@ -20,19 +21,29 @@ namespace TaskTracker.Web.Controllers
             return View(await _mediator.Send(new GetProjectsQuery()));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet]
+        public PartialViewResult Create()
         {
-            return File(await _mediator.Send(new GetProjectQuery { ListId = id }));
+            return PartialView("Create", new CreateProjectCommand());
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateProjectCommand command)
         {
-            return View(await _mediator.Send(command));
+            await _mediator.Send(command);
+
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpPut("{id}")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            ProjectViewModel project = await _mediator.Send(new GetProjectQuery { Id = id });
+
+            return PartialView(new UpdateProjectCommand { Id = id, ProjectViewModel = project });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Update(int id, UpdateProjectCommand command)
         {
             if (id != command.Id)
@@ -40,13 +51,17 @@ namespace TaskTracker.Web.Controllers
                 return BadRequest();
             }
 
-            return View(await _mediator.Send(command));
+            await _mediator.Send(command);
+
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            return View(await _mediator.Send(new DeleteProjectCommand { Id = id }));
+            await _mediator.Send(new DeleteProjectCommand { Id = id });
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -4,5 +4,7 @@
     {
         T Map<T>(object source);
         TDest Map<TSource, TDest>(TSource source);
+
+        TDest Map<TSource, TDest>(TSource source, TDest destination);
     }
 }

@@ -40,7 +40,7 @@ namespace TaskTracker.Infrastructure.Services
             return await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             using TaskTrackerDbContext dbContext = _dbFactory.Create();
 

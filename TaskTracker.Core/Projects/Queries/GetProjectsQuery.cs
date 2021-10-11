@@ -14,13 +14,13 @@ namespace TaskTracker.Application.Projects.Queries
     {
     }
 
-    public class GetTodosQueryHandler : IRequestHandler<GetProjectsQuery, List<ProjectViewModel>>
+    public class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, List<ProjectViewModel>>
     {
         private readonly IRepository<ProjectEntity> _projectRepository;
         private readonly IRepository<TaskEntity> _taskRepository;
         private readonly IMapper _mapper;
 
-        public GetTodosQueryHandler(IRepository<ProjectEntity> projectRepository, IRepository<TaskEntity> taskRepository, IMapper mapper)
+        public GetProjectsQueryHandler(IRepository<ProjectEntity> projectRepository, IRepository<TaskEntity> taskRepository, IMapper mapper)
         {
             _projectRepository = projectRepository;
             _taskRepository = taskRepository;
