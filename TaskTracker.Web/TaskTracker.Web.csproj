@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskTracker.Core\TaskTracker.Application.csproj" />
+    <ProjectReference Include="..\TaskTracker.Application\TaskTracker.Application.csproj" />
   </ItemGroup>
 
 </Project>

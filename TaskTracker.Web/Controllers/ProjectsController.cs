@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TaskTracker.Application.Common.ViewModels;
 using TaskTracker.Application.Projects.Commands;
 using TaskTracker.Application.Projects.Queries;
-using TaskTracker.Application.Common.ViewModels;
 
 namespace TaskTracker.Web.Controllers
 {

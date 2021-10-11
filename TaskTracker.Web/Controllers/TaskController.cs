@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TaskTracker.Application.Common.Helpers;
-using TaskTracker.Contracts.Entities;
-using TaskTracker.Domain.Contracts;
 
 namespace TaskTracker.Web.Controllers
 {
