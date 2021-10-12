@@ -4,6 +4,7 @@ using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
 using TaskTracker.Domain.Contracts.HandlersContracts;
 using TaskTracker.Domain.DataTypes;
+using INotification = TaskTracker.Domain.Contracts.INotification;
 
 namespace TaskTracker.Application.Core.Projects.Commands
 {
@@ -14,7 +15,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
 
     public class CreateProjectCommandHandler : CreateBaseCommandHandler<ProjectViewModel, VoidType, ProjectEntity, CreateProjectCommand>
     {
-        public CreateProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper) : base(repository, mapper)
+        public CreateProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper, INotification notification) : base(repository, mapper, notification)
         {
         }
     }
