@@ -8,10 +8,10 @@ using TaskTracker.Application.Core.Tasks.Commands;
 
 namespace TaskTracker.Web.Controllers
 {
-    public class TaskController : Controller
+    public class TasksController : Controller
     {
         private readonly IMediator _mediator;
-        public TaskController(IMediator mediator)
+        public TasksController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -19,7 +19,7 @@ namespace TaskTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _mediator.Send(new GetTasksQuery()));
+           return View(await _mediator.Send(new GetTasksQuery()));           
         }
 
         [HttpGet]

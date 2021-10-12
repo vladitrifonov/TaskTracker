@@ -4,14 +4,16 @@ using System.Threading.Tasks;
 using TaskTracker.Application.Common.ViewModels;
 using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
+using TaskTracker.Domain.Contracts.HandlersContracts;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public class GetProjectQuery : GetBaseQuery<ProjectViewModel>
-    {      
+    public class GetProjectQuery : IRequest<ProjectViewModel>, IStorageInt
+    {
+        public int Id { get; set; }
     }
 
-    public class GetProjectQueryHandler : GetBaseQueryHandler<ProjectViewModel, ProjectEntity>
+    public class GetProjectQueryHandler : GetBaseQueryHandler<ProjectViewModel, ProjectEntity, GetProjectQuery>
     {      
         private readonly IRepository<TaskEntity> _taskRepository;
       
@@ -21,7 +23,7 @@ namespace TaskTracker.Application.Core.Projects.Queries
             _taskRepository = taskRepository;            
         }
 
-        public override async Task<ProjectViewModel> Handle(GetBaseQuery<ProjectViewModel> request, CancellationToken cancellationToken)
+        public override async Task<ProjectViewModel> Handle(GetProjectQuery request, CancellationToken cancellationToken)
         {
             ProjectViewModel projectViewModel = await base.Handle(request, cancellationToken);
 

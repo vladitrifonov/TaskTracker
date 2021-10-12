@@ -7,14 +7,10 @@ using TaskTracker.Domain.Contracts;
 using System.Collections.Generic;
 
 namespace TaskTracker.Application.Core.Projects.Queries
-{
-    public abstract class GetBasesQuery<TViewModel> : IRequest<List<TViewModel>>
-    {
-    }
-
-    public class GetBasesQueryHandler<TViewModel, TEntity> 
-        : IRequestHandler<GetBasesQuery<TViewModel>, List<TViewModel>> 
+{    public abstract class GetBasesQueryHandler<TViewModel, TEntity, TRequest> 
+        : IRequestHandler<TRequest, List<TViewModel>> 
         where TEntity : BaseEntity
+        where TRequest : IRequest<List<TViewModel>>
     {
         private readonly IRepository<TEntity> _repository;      
         private readonly IMapper _mapper;
@@ -25,7 +21,7 @@ namespace TaskTracker.Application.Core.Projects.Queries
             _mapper = mapper;
         }
 
-        public virtual async Task<List<TViewModel>> Handle(GetBasesQuery<TViewModel> request, CancellationToken cancellationToken)
+        public virtual async Task<List<TViewModel>> Handle(TRequest request, CancellationToken cancellationToken)
         {
             IEnumerable<TEntity> projectsEntity = await _repository.GetAsync();
 

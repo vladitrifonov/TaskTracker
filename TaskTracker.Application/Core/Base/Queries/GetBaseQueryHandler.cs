@@ -4,17 +4,14 @@ using System.Threading.Tasks;
 using TaskTracker.Application.Common.ViewModels;
 using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
+using TaskTracker.Domain.Contracts.HandlersContracts;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public abstract class GetBaseQuery<TViewModel> : IRequest<TViewModel>
-    {
-        public int Id { get; set; }
-    }
-
-    public class GetBaseQueryHandler<TViewModel, TEntity>
-        : IRequestHandler<GetBaseQuery<TViewModel>, TViewModel> 
+   public abstract class GetBaseQueryHandler<TViewModel, TEntity, TRequest>
+        : IRequestHandler<TRequest, TViewModel> 
         where TEntity : BaseEntity
+        where TRequest : IRequest<TViewModel>, IStorageInt
     {
         private readonly IRepository<TEntity> _repository;     
         private readonly IMapper _mapper;
@@ -25,7 +22,7 @@ namespace TaskTracker.Application.Core.Projects.Queries
             _mapper = mapper;
         }
 
-        public virtual async Task<TViewModel> Handle(GetBaseQuery<TViewModel> request, CancellationToken cancellationToken)
+        public virtual async Task<TViewModel> Handle(TRequest request, CancellationToken cancellationToken)
         {
             TEntity entity = await _repository.GetByIdAsync(request.Id);
 

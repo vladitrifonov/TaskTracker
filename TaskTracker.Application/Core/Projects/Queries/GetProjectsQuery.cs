@@ -9,11 +9,11 @@ using System.Collections.Generic;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public class GetProjectsQuery : GetBasesQuery<List<ProjectViewModel>>
+    public class GetProjectsQuery : IRequest<List<ProjectViewModel>>
     {
     }
 
-    public class GetProjectsQueryHandler : GetBasesQueryHandler<ProjectViewModel, ProjectEntity> 
+    public class GetProjectsQueryHandler : GetBasesQueryHandler<ProjectViewModel, ProjectEntity, GetProjectsQuery> 
     {
         private readonly IRepository<TaskEntity> _taskRepository;
         public GetProjectsQueryHandler(IRepository<ProjectEntity> projectRepository, IMapper mapper, IRepository<TaskEntity> taskRepository) 
@@ -22,7 +22,7 @@ namespace TaskTracker.Application.Core.Projects.Queries
             _taskRepository = taskRepository;
         }
 
-        public override async Task<List<ProjectViewModel>> Handle(GetBasesQuery<ProjectViewModel> request, CancellationToken cancellationToken)
+        public override async Task<List<ProjectViewModel>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
         {
             List<ProjectViewModel> projects = await base.Handle(request, cancellationToken);
 

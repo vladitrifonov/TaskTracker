@@ -9,14 +9,14 @@ using System.Collections.Generic;
 
 namespace TaskTracker.Application.Core.Projects.Queries
 {
-    public class GetTasksQuery : GetBasesQuery<TaskViewModel>
+    public class GetTasksQuery : IRequest<List<TaskViewModel>>
     {
     }
 
-    public class GetTasksQueryHandler : GetBasesQueryHandler<TaskViewModel, TaskEntity>
+    public class GetTasksQueryHandler : GetBasesQueryHandler<TaskViewModel, TaskEntity, GetTasksQuery>
     {
         public GetTasksQueryHandler(IRepository<TaskEntity> taskRepository, IMapper mapper) : base(taskRepository, mapper)
         {
         }
-    }    
+    }
 }

@@ -36,7 +36,7 @@ namespace TaskTracker.Infrastructure.Services
         public async Task<T> GetByIdAsync(int id)
         {
             using TaskTrackerDbContext dbContext = _dbFactory.Create();
-
+            var qwer = await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
             return await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
 

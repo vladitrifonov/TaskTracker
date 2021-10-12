@@ -4,20 +4,15 @@ using System.Threading.Tasks;
 using TaskTracker.Application.Common.Exceptions;
 using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
+using TaskTracker.Domain.Contracts.HandlersContracts;
 
 namespace TaskTracker.Application.Core.Projects.Commands
 {
-    public abstract class UpdateBaseCommand <TViewModel, TResult> 
-        : IRequest<TResult>
-    {
-        public int Id { get; set; }
-        public TViewModel ViewModel { get; set; }
-    }
-
-    public abstract class UpdateBaseCommandHandler<TViewModel, TResult, TEntity>
-        : IRequestHandler<UpdateBaseCommand<TViewModel, TResult>, TResult>
+    public abstract class UpdateBaseCommandHandler<TViewModel, TResult, TEntity, TRequest>
+          : IRequestHandler<TRequest, TResult>
         where TResult : new()
         where TEntity : BaseEntity
+        where TRequest : IRequest<TResult>, IStorageIntAndViewModel<TViewModel>
     {
         private readonly IRepository<TEntity> _projectRepository;
         private readonly IMapper _mapper;
@@ -28,7 +23,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
             _mapper = mapper;
         }
 
-        public virtual async Task<TResult> Handle(UpdateBaseCommand<TViewModel, TResult> request, CancellationToken cancellationToken)
+        public virtual async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken)
         {
             TEntity entity = await _projectRepository.GetByIdAsync(request.Id);
 

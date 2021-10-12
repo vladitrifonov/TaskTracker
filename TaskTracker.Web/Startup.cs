@@ -69,31 +69,8 @@ namespace TaskTracker.Web
 
             System.Reflection.Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains(nameof(TaskTracker))).ToArray();
             services.AddMediatR(assemblies);
-
-            var types = new List<(Type, Type, Type)> {
-                (typeof(ProjectViewModel), typeof(ProjectEntity), typeof(VoidType)) ,
-                (typeof(TaskViewModel), typeof(TaskEntity), typeof(VoidType)) ,
-            };
-
-            RegisterHandlers(services, types);
         }
-
-        private void RegisterHandlers(IServiceCollection services, List<(Type viewModel, Type entity, Type result)> types)
-        {
-            //duplicate
-            services.AddTransient<IRequestHandler<CreateBaseCommand<ProjectViewModel, VoidType>, VoidType>, CreateProjectCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateBaseCommand<ProjectViewModel, VoidType>, VoidType>, UpdateProjectCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteBaseCommand<VoidType>, VoidType>, DeleteProjectCommandHandler>();
-            services.AddTransient<IRequestHandler<GetBaseQuery<ProjectViewModel>, ProjectViewModel>, GetProjectQueryHandler>();
-            services.AddTransient<IRequestHandler<GetBasesQuery<ProjectViewModel>, List<ProjectViewModel>>, GetProjectsQueryHandler>();
-
-            services.AddTransient<IRequestHandler<CreateBaseCommand<TaskViewModel, VoidType>, VoidType>, CreateTaskCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateBaseCommand<TaskViewModel, VoidType>, VoidType>, UpdateTaskCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteBaseCommand<VoidType>, VoidType>, DeleteTaskCommandHandler>();
-            services.AddTransient<IRequestHandler<GetBaseQuery<TaskViewModel>, TaskViewModel>, GetTaskQueryHandler>();
-            services.AddTransient<IRequestHandler<GetBasesQuery<TaskViewModel>, List<TaskViewModel>>, GetTasksQueryHandler>();
-        }
-
+               
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
