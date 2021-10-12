@@ -11,9 +11,9 @@ namespace TaskTracker.Application.Core.Projects.Queries
     {
     }
 
-    public class GetTaskHandler : GetBaseQueryHandler<TaskViewModel, TaskEntity>
+    public class GetTaskQueryHandler : GetBaseQueryHandler<TaskViewModel, TaskEntity>
     { 
-        public GetTaskHandler(IRepository<TaskEntity> taskRepository, IMapper mapper) : base(taskRepository, mapper)
+        public GetTaskQueryHandler(IRepository<TaskEntity> taskRepository, IMapper mapper) : base(taskRepository, mapper)
         {           
             
         }

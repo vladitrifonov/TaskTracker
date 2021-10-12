@@ -10,9 +10,9 @@ namespace TaskTracker.Application.Core.Tasks.Commands
     {       
     }
 
-    public class CreateTasksCommandHandler : CreateBaseCommandHandler<TaskViewModel, VoidType, TaskEntity>
+    public class CreateTaskCommandHandler : CreateBaseCommandHandler<TaskViewModel, VoidType, TaskEntity>
     {
-        public CreateTasksCommandHandler(IRepository<TaskEntity> repository, IMapper mapper) : base(repository, mapper)
+        public CreateTaskCommandHandler(IRepository<TaskEntity> repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }

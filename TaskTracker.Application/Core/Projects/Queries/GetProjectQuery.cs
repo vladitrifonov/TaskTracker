@@ -11,11 +11,11 @@ namespace TaskTracker.Application.Core.Projects.Queries
     {      
     }
 
-    public class GetProjectHandler : GetBaseQueryHandler<ProjectViewModel, ProjectEntity>
+    public class GetProjectQueryHandler : GetBaseQueryHandler<ProjectViewModel, ProjectEntity>
     {      
         private readonly IRepository<TaskEntity> _taskRepository;
       
-        public GetProjectHandler(IRepository<ProjectEntity> projectRepository, IMapper mapper, IRepository<TaskEntity> taskRepository)
+        public GetProjectQueryHandler(IRepository<ProjectEntity> projectRepository, IMapper mapper, IRepository<TaskEntity> taskRepository)
             : base(projectRepository, mapper)
         {           
             _taskRepository = taskRepository;            
