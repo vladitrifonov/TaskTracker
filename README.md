@@ -1,5 +1,7 @@
 # TaskTracker
 
+Onion architecture
+
 todo
 
 --validation
