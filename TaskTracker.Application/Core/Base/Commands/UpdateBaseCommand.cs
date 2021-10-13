@@ -23,7 +23,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
             _mapper = mapper;
         }
 
-        public virtual async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken)
+        public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken)
         {
             TEntity entity = await _projectRepository.GetByIdAsync(request.Id);
 
