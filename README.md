@@ -1,5 +1,7 @@
 # TaskTracker
 
+Onion architecture
+
 todo
 
 --validation
@@ -11,8 +13,6 @@ todo
 --modalpage
 
 --tests
-
---validation
 
 --notification
 
