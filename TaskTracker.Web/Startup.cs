@@ -69,6 +69,8 @@ namespace TaskTracker.Web
 
             System.Reflection.Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.Contains(nameof(TaskTracker))).ToArray();
             services.AddMediatR(assemblies);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
         }
                
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,19 +17,19 @@ namespace TaskTracker.Application.Common
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
+            TResponse response = default;
             try
             {
-                return await next();
+                response = await next();
             }
             catch (Exception ex)
             {
-                var requestName = typeof(TRequest).Name;
+                string requestName = typeof(TRequest).Name;
 
-                _notification.Error($"Unhandled Exception for Request {requestName} {request}");
-                //_logger.LogError(ex, "Unhandled Exception for Request {Name} {@Request}", requestName, request);
-
-                throw;
+                _notification.Error($"Unhandled Exception for {requestName} {ex.Message}");
+                //_logger.LogError(ex, $"Unhandled Exception for {requestName}");
             }
+            return response;
         }
     }
 }

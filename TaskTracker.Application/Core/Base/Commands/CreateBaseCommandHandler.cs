@@ -26,8 +26,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
         }
 
         public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken)
-        {
-            throw new ArgumentException("123");
+        {          
             await _repository.CreateAsync(_mapper.Map<TEntity>(request.ViewModel));
              
             return new TResult();
