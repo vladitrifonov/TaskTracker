@@ -1,6 +1,6 @@
 # TaskTracker
 
-Onion architecture
+Onion architecture, MediatR, EFCore, Automapper, ToastNotification
 
 todo
 
