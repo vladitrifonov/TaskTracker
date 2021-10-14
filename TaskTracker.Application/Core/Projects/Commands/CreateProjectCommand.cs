@@ -15,7 +15,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
 
     public class CreateProjectCommandHandler : CreateBaseCommandHandler<ProjectViewModel, VoidType, ProjectEntity, CreateProjectCommand>
     {
-        public CreateProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper, INotification notification) : base(repository, mapper, notification)
+        public CreateProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }

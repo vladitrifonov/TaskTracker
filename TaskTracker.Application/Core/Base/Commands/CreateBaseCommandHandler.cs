@@ -17,31 +17,19 @@ namespace TaskTracker.Application.Core.Projects.Commands
         where TRequest : IRequest<TResult>, IStorageViewModel<TViewModel>
     {
         private readonly IRepository<TEntity> _repository;
-        private readonly IMapper _mapper;
-        private readonly INotification _notification;
+        private readonly IMapper _mapper;       
 
-        public CreateBaseCommandHandler(IRepository<TEntity> repository, IMapper mapper, INotification notification)
+        public CreateBaseCommandHandler(IRepository<TEntity> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _notification = notification;
         }
 
         public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken)
         {
-            try
-            {
-                await _repository.CreateAsync(_mapper.Map<TEntity>(request.ViewModel));
-            }
-            catch (Exception ex)
-            {
-                _notification.Error(TextHelper.CouldNotCreated(typeof(TEntity).Name));
-                Console.WriteLine(ex);//log ex
-            }
-            
-
-            _notification.Success(TextHelper.Created(typeof(TEntity).Name));
-
+            throw new ArgumentException("123");
+            await _repository.CreateAsync(_mapper.Map<TEntity>(request.ViewModel));
+             
             return new TResult();
         }
     }
