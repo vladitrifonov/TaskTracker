@@ -16,27 +16,27 @@ namespace SimpleLogger
         public Task Trace(string message)
         {
             var level = $"{nameof(Trace)}";
-            return _output.Post($"{message}");
+            return _output.Post($"{level} {message}");
         }
         public Task Debug(string message)
         {
             var level = $"{nameof(Debug)}";
-            return _output.Post($"{message}");
+            return _output.Post($"{level} {message}");
         }
         public Task Information(string message)
         {
             var level = $"{nameof(Information)}";
-            return _output.Post($"{message}");
+            return _output.Post($"{level} {message}");
         }
         public Task Warning(string message)
         {
             var level = $"{nameof(Warning)}";
-            return _output.Post($"{message}");
+            return _output.Post($"{level} {message}");
         }
         public Task Error(string message)
         {
             var level = $"{nameof(Error)}";
-            return _output.Post($"{message}");
+            return _output.Post($"{level} {message}");
         }
     }
 }
