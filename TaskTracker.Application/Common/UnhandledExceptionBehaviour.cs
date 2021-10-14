@@ -19,7 +19,7 @@ namespace TaskTracker.Application.Common
         {
             TResponse response = default;
             try
-            {
+            {               
                 response = await next();
             }
             catch (Exception ex)
