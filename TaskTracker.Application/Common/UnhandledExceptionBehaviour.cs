@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TaskTracker.Domain.Contracts;
 using INotification = TaskTracker.Domain.Contracts.INotification;
 
 namespace TaskTracker.Application.Common
@@ -9,10 +10,12 @@ namespace TaskTracker.Application.Common
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly INotification _notification;
+        private readonly ILogger _logger;
 
-        public UnhandledExceptionBehaviour(INotification notification)
+        public UnhandledExceptionBehaviour(INotification notification, ILogger logger)
         {
             _notification = notification;
+            _logger = logger;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -26,8 +29,8 @@ namespace TaskTracker.Application.Common
             {
                 string requestName = typeof(TRequest).Name;
 
-                _notification.Error($"Unhandled Exception for {requestName} {ex.Message}");
-                //_logger.LogError(ex, $"Unhandled Exception for {requestName}");
+                await _notification.Error($"Unhandled Exception for {requestName} {ex.Message}");
+                await _logger.Error($"Unhandled Exception for {requestName}");
             }
             return response;
         }

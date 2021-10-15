@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleLogger
 {
+    //todo: make more proper way of logging
     public class Logger : ILogger
     {
         private readonly IOutput _output;

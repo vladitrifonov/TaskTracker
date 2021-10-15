@@ -57,6 +57,10 @@ namespace TaskTracker.Web
 
             services.AddTransient<ILogger, DefaultLogger>();
 
+            services.AddTransient<SimpleLogger.ILogger, SimpleLogger.Logger>();
+
+            services.AddTransient<SimpleLogger.IOutput>(provider => new SimpleLogger.FileOutput($"{Environment.CurrentDirectory}\\log.txt"));
+
             services.AddToastify(config => { config.DurationInSeconds = 5; config.Position = Position.Right; config.Gravity = Gravity.Bottom; });
 
             services.AddTransient<Domain.Contracts.INotification, ToastifyNotification>();

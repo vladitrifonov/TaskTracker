@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using System.Threading.Tasks;
 using TaskTracker.Domain.Contracts;
 
 namespace TaskTracker.Application.Common.Notifications
@@ -10,21 +11,25 @@ namespace TaskTracker.Application.Common.Notifications
         {
             _notifyService = notifyService;
         }
-        public void Info(string message)
+        public Task Info(string message)
         {
             _notifyService.Information(message);
+            return Task.CompletedTask;
         }
-        public void Success(string message)
+        public Task Success(string message)
         {
             _notifyService.Success(message);
+            return Task.CompletedTask;
         }
-        public void Warning(string message)
+        public Task Warning(string message)
         {
             _notifyService.Warning(message);
+            return Task.CompletedTask;
         }
-        public void Error(string message)
+        public Task Error(string message)
         {
             _notifyService.Error(message);
+            return Task.CompletedTask;
         }
     }
 }

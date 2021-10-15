@@ -1,10 +1,12 @@
-﻿namespace TaskTracker.Domain.Contracts
+﻿using System.Threading.Tasks;
+
+namespace TaskTracker.Domain.Contracts
 {
     public interface INotification
     {
-        void Info(string message);
-        void Success(string message);
-        void Warning(string message);
-        void Error(string message);
+        Task Info(string message);
+        Task Success(string message);
+        Task Warning(string message);
+        Task Error(string message);
     }
 }
