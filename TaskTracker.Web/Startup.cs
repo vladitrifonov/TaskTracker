@@ -23,6 +23,7 @@ using TaskTracker.Domain.DataTypes;
 using TaskTracker.Application.Core.Projects.Queries;
 using System.Collections.Generic;
 using TaskTracker.Application.Core.Tasks.Commands;
+using TaskTracker.Application.Common.Logger;
 
 namespace TaskTracker.Web
 {
@@ -53,6 +54,8 @@ namespace TaskTracker.Web
             services.AddTransient<IRepository<ProjectEntity>, EfRepository<ProjectEntity>>();
 
             services.AddTransient<IRepository<TaskEntity>, EfRepository<TaskEntity>>();
+
+            services.AddTransient<ILogger, DefaultLogger>();
 
             services.AddToastify(config => { config.DurationInSeconds = 5; config.Position = Position.Right; config.Gravity = Gravity.Bottom; });
 
