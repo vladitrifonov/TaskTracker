@@ -83,6 +83,8 @@ namespace TaskTracker.Web
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
 
             services.AddTransient<INotificationHandler<DomainEventNotification<BaseCreatedEvent<ProjectEntity>>>, ProjectCreatedEventHandler>();
+            //IPipelineBehavior<TRequest, TResponse>
+            services.AddTransient<IPipelineBehavior<CreateProjectCommand, VoidType>, TestBehaviour<CreateProjectCommand, VoidType>>();
         }
                
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

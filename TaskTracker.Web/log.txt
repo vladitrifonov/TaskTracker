@@ -1,1 +1,1 @@
-Error Unhandled Exception for GetProjectsQuery
+Information Created CreateProjectCommand

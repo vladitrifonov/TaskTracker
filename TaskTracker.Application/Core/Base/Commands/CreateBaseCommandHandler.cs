@@ -32,7 +32,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
 
             await _repository.CreateAsync(entity);
 
-            entity.DomainEvents.Add(new BaseCreatedEvent<TEntity>(entity));
+            //entity.DomainEvents.Add(new BaseCreatedEvent<TEntity>(entity));
 
             return new TResult();
         }
