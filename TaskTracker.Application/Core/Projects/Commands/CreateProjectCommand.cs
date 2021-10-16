@@ -4,7 +4,6 @@ using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
 using TaskTracker.Domain.Contracts.HandlersContracts;
 using TaskTracker.Domain.DataTypes;
-using INotification = TaskTracker.Domain.Contracts.INotification;
 
 namespace TaskTracker.Application.Core.Projects.Commands
 {

@@ -24,6 +24,9 @@ using TaskTracker.Application.Core.Projects.Queries;
 using System.Collections.Generic;
 using TaskTracker.Application.Core.Tasks.Commands;
 using TaskTracker.Application.Common.Logger;
+using TaskTracker.Application.Common.Models;
+using TaskTracker.Domain.Events;
+using TaskTracker.Application.Core.Projects.EventHandlers;
 
 namespace TaskTracker.Web
 {
@@ -78,6 +81,8 @@ namespace TaskTracker.Web
             services.AddMediatR(assemblies);
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+
+            services.AddTransient<INotificationHandler<DomainEventNotification<BaseCreatedEvent<ProjectEntity>>>, ProjectCreatedEventHandler>();
         }
                
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
