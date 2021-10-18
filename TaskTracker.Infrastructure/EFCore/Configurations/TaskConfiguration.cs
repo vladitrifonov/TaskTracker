@@ -10,8 +10,7 @@ namespace TaskTracker.Infrastructure.EFCore.Configurations
         {
             builder.ToTable("Tasks");
             builder.HasKey(e => e.Id);
-            builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
-            builder.Ignore(x => x.DomainEvents);
+            builder.Property(x => x.Name).HasMaxLength(50).IsRequired();         
         }
     }
 }

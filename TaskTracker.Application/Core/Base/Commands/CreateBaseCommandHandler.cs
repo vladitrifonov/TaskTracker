@@ -1,20 +1,16 @@
 ﻿using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TaskTracker.Application.Common.Helpers;
 using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
 using TaskTracker.Domain.Contracts.HandlersContracts;
-using TaskTracker.Domain.Events;
-using INotification = TaskTracker.Domain.Contracts.INotification;
 
 namespace TaskTracker.Application.Core.Projects.Commands
 {
     public abstract class CreateBaseCommandHandler<TViewModel, TResult, TEntity, TRequest> 
         : IRequestHandler<TRequest, TResult> 
         where TResult : new() 
-        where TEntity : BaseEntity, IHasDomainEvent
+        where TEntity : BaseEntity
         where TRequest : IRequest<TResult>, IStorageViewModel<TViewModel>
     {
         private readonly IRepository<TEntity> _repository;
