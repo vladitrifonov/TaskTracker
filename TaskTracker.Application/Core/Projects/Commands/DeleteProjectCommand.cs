@@ -13,7 +13,7 @@ namespace TaskTracker.Application.Core.Projects.Commands
 
     public class DeleteProjectCommandHandler : DeleteBaseCommandHandler<VoidType, ProjectEntity, DeleteProjectCommand>
     {
-        public DeleteProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper) : base(repository, mapper)
+        public DeleteProjectCommandHandler(IRepository<ProjectEntity> repository, IMapper mapper, Domain.Contracts.INotification notification) : base(repository, mapper, notification)
         {
         }
     }

@@ -16,7 +16,7 @@ namespace TaskTracker.Application.Core.Tasks.Commands
 
     public class UpdateTaskCommandHandler : UpdateBaseCommandHandler<TaskViewModel, VoidType, TaskEntity, UpdateTaskCommand>
     {
-        public UpdateTaskCommandHandler(IRepository<TaskEntity> repository, IMapper mapper) : base(repository, mapper)
+        public UpdateTaskCommandHandler(IRepository<TaskEntity> repository, IMapper mapper, Domain.Contracts.INotification notification) : base(repository, mapper, notification)
         {
         }
     }

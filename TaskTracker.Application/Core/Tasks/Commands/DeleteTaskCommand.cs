@@ -14,7 +14,7 @@ namespace TaskTracker.Application.Core.Tasks.Commands
 
     public class DeleteTaskCommandHandler : DeleteBaseCommandHandler<VoidType, TaskEntity, DeleteTaskCommand>
     {
-        public DeleteTaskCommandHandler(IRepository<TaskEntity> repository, IMapper mapper) : base(repository, mapper)
+        public DeleteTaskCommandHandler(IRepository<TaskEntity> repository, IMapper mapper, Domain.Contracts.INotification notification) : base(repository, mapper, notification)
         {
         }
     }
