@@ -12,7 +12,8 @@
 
 <div class="container">
     <div class="pull-right" style="padding-bottom:2em">
-        @Html.ActionLink("Create New", "Create")
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createProjectModal" onclick="location.href='@Url.Action("Create","Projects")'">Insert</button>
+        @Html.ActionLink("Create New", "Create", "Projects", null, new {@type = "button", @class = "btn btn-primary", @datatoggle = "modal", @datatarget = "#createProjectModal" })
     </div>
 </div>
 
