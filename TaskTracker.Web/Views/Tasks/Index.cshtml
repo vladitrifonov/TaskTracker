@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = "Tasks";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @*<link href="~/css/TableCustom.css" rel="stylesheet" />*@
@@ -22,8 +21,8 @@
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Status)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Priority)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th> 
-             @*add idProject support*@
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th>
+            @*add idProject support*@
             <th></th>
             <th></th>
         </tr>
@@ -36,7 +35,7 @@
                 <td>@Html.DisplayFor(_ => task.Name)</td>
                 <td>@Html.DisplayFor(_ => task.Status)</td>
                 <td>@Html.DisplayFor(_ => task.Priority)</td>
-                <td>@Html.DisplayFor(_ => task.Description)</td>               
+                <td>@Html.DisplayFor(_ => task.Description)</td>
                 <td class="text-center ">
                     @Html.ActionLink("Edit", "Edit", new { id = task.Id })
                 </td>

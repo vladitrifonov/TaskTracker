@@ -3,18 +3,18 @@
 
 @{
     ViewBag.Title = "Projects";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<link href="~/css/TableCustom.css" rel="stylesheet" />*@
 
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
     <div class="pull-right" style="padding-bottom:2em">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createProjectModal" onclick="location.href='@Url.Action("Create","Projects")'">Insert</button>
-        @Html.ActionLink("Create Test", "Create", "Projects", null, new { @type = "button", @class = "btn btn-primary", @datatoggle = "modal", @datatarget = "#createProjectModal" })
-        @Html.ActionLink("Create New", "Create")
+        <button type="button" id="btn-create" class="btn btn-sm btn-primary btn-edit"
+                data-url="@Url.Action("Create")"
+                data-title="Creating Project">
+            New Project
+        </button>
     </div>
 </div>
 
@@ -34,19 +34,28 @@
         @foreach (var project in Model)
         {
             @Html.HiddenFor(_ => project.Id)
-        <tr>
-            <td>@Html.DisplayFor(_ => project.Name)</td>
-            <td>@Html.DisplayFor(_ => project.Status)</td>
-            <td>@Html.DisplayFor(_ => project.Priority)</td>
-            <td>@Html.DisplayFor(_ => project.StartDate)</td>
-            <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
-            <td class="text-center ">
-                @Html.ActionLink("Edit", "Edit", new {id = project.Id})
-            </td>
-            <td class="text-center ">
-                @Html.ActionLink("Delete", "Delete", new { id = project.Id })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(_ => project.Name)</td>
+                <td>@Html.DisplayFor(_ => project.Status)</td>
+                <td>@Html.DisplayFor(_ => project.Priority)</td>
+                <td>@Html.DisplayFor(_ => project.StartDate)</td>
+                <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
+                <td class="text-center ">
+                    @Html.ActionLink("Edit", "Edit", new { id = project.Id })
+                </td>
+                <td class="text-center ">
+                    @Html.ActionLink("Delete", "Delete", new { id = project.Id })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@await Html.PartialAsync("_ModalEditPartial")
+
+
+@section Scripts
+{
+    <script src="~/js/index-actions.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+}

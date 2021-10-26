@@ -32,6 +32,7 @@ namespace TaskTracker.Web.Controllers
         {
             await _mediator.Send(command);
 
+            return Json(new { succeeded = true });
             return RedirectToAction(nameof(Index));
         }
 
