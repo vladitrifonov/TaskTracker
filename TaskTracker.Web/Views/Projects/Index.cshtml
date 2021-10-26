@@ -41,10 +41,19 @@
                 <td>@Html.DisplayFor(_ => project.StartDate)</td>
                 <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
                 <td class="text-center ">
-                    @Html.ActionLink("Edit", "Edit", new { id = project.Id })
+                    <button class="btn btn-xs btn-primary btn-edit"
+                            data-title="Editing Project"
+                            data-url="@Url.Action("Edit", new { project.Id })">
+                        Edit
+                    </button>
                 </td>
                 <td class="text-center ">
-                    @Html.ActionLink("Delete", "Delete", new { id = project.Id })
+                    <button class="btn btn-xs btn-danger btn-delete"
+                            data-url="@Url.Action("Delete", new { project.Id })"
+                            data-title="@project.Name"
+                            title="Delete Project">
+                        Delete
+                    </button>
                 </td>
             </tr>
         }

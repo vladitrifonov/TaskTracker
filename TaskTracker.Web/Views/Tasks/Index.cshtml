@@ -46,3 +46,12 @@
         }
     </tbody>
 </table>
+
+@await Html.PartialAsync("_ModalEditPartial")
+
+
+@section Scripts
+{
+    <script src="~/js/index-actions.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+}

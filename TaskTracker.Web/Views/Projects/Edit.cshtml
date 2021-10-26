@@ -1,10 +1,9 @@
 ﻿@model TaskTracker.Application.Core.Projects.Commands.UpdateProjectCommand
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Update", "Projects", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Projects", FormMethod.Post, new { id = "edit-form" }))
 {
     @Html.AntiForgeryToken()
 <div class="form-horizontal">
@@ -51,19 +50,7 @@
                 @Html.DropDownListFor(model => model.Language, (IList<SelectListItem>)ViewBag.Languages, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
             </div>
-        </div>*@
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-default" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    </div>
+        </div>*@   
 </div>
 }
 

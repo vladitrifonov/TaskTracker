@@ -33,7 +33,6 @@ namespace TaskTracker.Web.Controllers
             await _mediator.Send(command);
 
             return Json(new { succeeded = true });
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -45,7 +44,7 @@ namespace TaskTracker.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, UpdateProjectCommand command)
+        public async Task<IActionResult> Edit(int id, UpdateProjectCommand command)
         {
             if (id != command.Id)
             {
@@ -54,15 +53,15 @@ namespace TaskTracker.Web.Controllers
 
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { succeeded = true });
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteProjectCommand { Id = id });
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { succeeded = true });
         }
     }
 }
