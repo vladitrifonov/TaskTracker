@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TaskTracker.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -41,11 +42,10 @@
         </div>
     </footer>
 
-    @await Html.PartialAsync("_ModalConfirmationPartial")
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    
     @await Component.InvokeAsync("Toastify")
     @await RenderSectionAsync("Scripts", required: false)
 </body>

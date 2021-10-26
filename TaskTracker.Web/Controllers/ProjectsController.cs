@@ -22,9 +22,9 @@ namespace TaskTracker.Web.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult Create()
-        {
-            return PartialView("Create", new CreateProjectCommand());
+        public Task<IActionResult> Create()
+        {          
+            return Task.FromResult<IActionResult>(View(new CreateProjectCommand()));
         }
 
         [HttpPost]
@@ -32,7 +32,7 @@ namespace TaskTracker.Web.Controllers
         {
             await _mediator.Send(command);
 
-            return Json(new { succeeded = true });
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace TaskTracker.Web.Controllers
         {
             ProjectViewModel project = await _mediator.Send(new GetProjectQuery { Id = id });
 
-            return PartialView(new UpdateProjectCommand { Id = id, ViewModel = project });
+            return View(new UpdateProjectCommand { Id = id, ViewModel = project });
         }
 
         [HttpPost]
@@ -53,15 +53,15 @@ namespace TaskTracker.Web.Controllers
 
             await _mediator.Send(command);
 
-            return Json(new { succeeded = true });
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteProjectCommand { Id = id });
 
-            return Json(new { succeeded = true });
+            return RedirectToAction(nameof(Index));
         }
     }
 }

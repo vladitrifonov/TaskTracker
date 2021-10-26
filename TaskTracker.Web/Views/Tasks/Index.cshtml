@@ -3,17 +3,14 @@
 
 @{
     ViewBag.Title = "Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@*<link href="~/css/TableCustom.css" rel="stylesheet" />*@
 
 <h2>@ViewBag.Title</h2>
 
-<div class="container">
-    <div class="pull-right" style="padding-bottom:2em">
-        @Html.ActionLink("Create New", "Create")
-    </div>
-</div>
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
 
 <table class="table table-bordered table-condensed">
     <thead>
@@ -31,27 +28,18 @@
         @foreach (var task in Model)
         {
             @Html.HiddenFor(_ => task.Id)
-            <tr>
-                <td>@Html.DisplayFor(_ => task.Name)</td>
-                <td>@Html.DisplayFor(_ => task.Status)</td>
-                <td>@Html.DisplayFor(_ => task.Priority)</td>
-                <td>@Html.DisplayFor(_ => task.Description)</td>
-                <td class="text-center ">
-                    @Html.ActionLink("Edit", "Edit", new { id = task.Id })
-                </td>
-                <td class="text-center ">
-                    @Html.ActionLink("Delete", "Delete", new { id = task.Id })
-                </td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(_ => task.Name)</td>
+            <td>@Html.DisplayFor(_ => task.Status)</td>
+            <td>@Html.DisplayFor(_ => task.Priority)</td>
+            <td>@Html.DisplayFor(_ => task.Description)</td>
+            <td class="text-center ">
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@task.Id">Edit</a>
+            </td>
+            <td class="text-center ">
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@task.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
-
-@await Html.PartialAsync("_ModalEditPartial")
-
-
-@section Scripts
-{
-    <script src="~/js/index-actions.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-}

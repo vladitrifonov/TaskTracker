@@ -3,7 +3,7 @@
     ViewBag.Title = "Create";
 }
 
-@using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { id = "edit-form" }))
+@using (Html.BeginForm("Create", "Projects", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -43,8 +43,14 @@
                 @Html.ValidationMessageFor(model => model.ViewModel.CompletionDate, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a class="btn btn-danger" asp-action="Index">Back</a>
+        </div>
     </div>
 }
-
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

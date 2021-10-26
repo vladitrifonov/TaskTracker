@@ -3,54 +3,64 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm("Edit", "Projects", FormMethod.Post, new { id = "edit-form" }))
+@using (Html.BeginForm("Edit", "Projects", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
-    <div class="form-group">
-        @Html.LabelFor(model => model.ViewModel.Name, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.EditorFor(model => model.ViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ViewModel.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.EditorFor(model => model.ViewModel.Status, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ViewModel.Status, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ViewModel.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.EditorFor(model => model.ViewModel.Priority, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ViewModel.Priority, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ViewModel.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.EditorFor(model => model.ViewModel.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ViewModel.StartDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ViewModel.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-8">
-            @Html.EditorFor(model => model.ViewModel.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ViewModel.CompletionDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-4" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.Name, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.DropDownListFor(model => model.Language, (IList<SelectListItem>)ViewBag.Languages, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ViewModel.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewModel.Name, "", new { @class = "text-danger" })
             </div>
-        </div>*@   
-</div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ViewModel.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewModel.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.Priority, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ViewModel.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewModel.Priority, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ViewModel.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewModel.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.CompletionDate, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ViewModel.CompletionDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ViewModel.CompletionDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.Language, (IList<SelectListItem>)ViewBag.Languages, "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a class="btn btn-danger" asp-action="Index">Back</a>
+        </div>
+    </div>
+}
+@section Scripts 
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+     }
 }
 

@@ -3,20 +3,14 @@
 
 @{
     ViewBag.Title = "Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <h2>@ViewBag.Title</h2>
 
-<div class="container">
-    <div class="pull-right" style="padding-bottom:2em">
-        <button type="button" id="btn-create" class="btn btn-sm btn-primary btn-edit"
-                data-url="@Url.Action("Create")"
-                data-title="Creating Project">
-            New Project
-        </button>
-    </div>
-</div>
+<p style="text-align:right;margin-right:20px;">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
 
 <table class="table table-bordered table-condensed">
     <thead>
@@ -41,30 +35,12 @@
                 <td>@Html.DisplayFor(_ => project.StartDate)</td>
                 <td>@Html.DisplayFor(_ => project.CompletionDate)</td>
                 <td class="text-center ">
-                    <button class="btn btn-xs btn-primary btn-edit"
-                            data-title="Editing Project"
-                            data-url="@Url.Action("Edit", new { project.Id })">
-                        Edit
-                    </button>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@project.Id">Edit</a>
                 </td>
                 <td class="text-center ">
-                    <button class="btn btn-xs btn-danger btn-delete"
-                            data-url="@Url.Action("Delete", new { project.Id })"
-                            data-title="@project.Name"
-                            title="Delete Project">
-                        Delete
-                    </button>
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@project.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-@await Html.PartialAsync("_ModalEditPartial")
-
-
-@section Scripts
-{
-    <script src="~/js/index-actions.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-}
