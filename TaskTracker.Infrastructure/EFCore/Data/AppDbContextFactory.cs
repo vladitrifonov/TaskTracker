@@ -19,7 +19,7 @@ namespace TaskTracker.Infrastructure.EFCore.Data
             var optionsBuilder = new DbContextOptionsBuilder<TaskTrackerDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
         
-            return new TaskTrackerDbContext(optionsBuilder.Options);
+            return new TaskTrackerDbContext(optionsBuilder.Options, configuration);
         }
     }
 }

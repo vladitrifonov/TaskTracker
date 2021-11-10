@@ -1,1 +1,1 @@
-Error Unhandled Exception for CreateTaskCommand
+Error Unhandled Exception for GetProjectsQuery
