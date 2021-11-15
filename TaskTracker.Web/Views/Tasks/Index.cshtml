@@ -33,7 +33,7 @@
             <td>@Html.DisplayFor(_ => task.Status)</td>
             <td>@Html.DisplayFor(_ => task.Priority)</td>
             <td>@Html.DisplayFor(_ => task.Description)</td>
-            <td>@((ViewBag.Projects as IEnumerable<SelectListItem>).FirstOrDefault(x => x.Value == task.ProjectId.ToString()).Text)</td>   
+            <td>@((ViewBag.Projects as IEnumerable<SelectListItem>)?.FirstOrDefault(x => x.Value == task.ProjectId.ToString())?.Text)</td>   
             <td class="text-center ">
                 <a asp-action="Edit" class="btn btn-primary" asp-route-id="@task.Id">Edit</a>
             </td>
