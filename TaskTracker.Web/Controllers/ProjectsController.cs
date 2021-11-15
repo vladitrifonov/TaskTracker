@@ -31,7 +31,6 @@ namespace TaskTracker.Web.Controllers
         public async Task<IActionResult> Create(CreateProjectCommand command)
         {
             await _mediator.Send(command);
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -39,7 +38,6 @@ namespace TaskTracker.Web.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             ProjectViewModel project = await _mediator.Send(new GetProjectQuery { Id = id });
-
             return View(new UpdateProjectCommand { Id = id, ViewModel = project });
         }
 
@@ -48,11 +46,9 @@ namespace TaskTracker.Web.Controllers
         {
             if (id != command.Id)
             {
-                return BadRequest();
+                return BadRequest();            
             }
-
             await _mediator.Send(command);
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -60,7 +56,6 @@ namespace TaskTracker.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteProjectCommand { Id = id });
-
             return RedirectToAction(nameof(Index));
         }
     }

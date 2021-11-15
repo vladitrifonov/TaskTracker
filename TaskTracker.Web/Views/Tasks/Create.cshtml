@@ -16,7 +16,6 @@
                 @Html.ValidationMessageFor(model => model.ViewModel.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*add idProject support*@
         <div class="form-group">
             @Html.LabelFor(model => model.ViewModel.Status, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
@@ -38,14 +37,13 @@
                 @Html.ValidationMessageFor(model => model.ViewModel.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Language, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.Language, (IList<SelectListItem>)ViewBag.Languages, "", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.ViewModel.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.ViewModel.ProjectId, ViewBag.Projects as IEnumerable<SelectListItem>, "Select Project", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ViewModel.ProjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             <input class="btn btn-primary" type="submit" value="Save" />
             <a class="btn btn-danger" asp-action="Index">Back</a>

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using TaskTracker.Application.Common.ViewModels;
 using TaskTracker.Application.Core.Projects.Commands;
@@ -13,18 +14,20 @@ namespace TaskTracker.Web.Controllers
         private readonly IMediator _mediator;
         public TasksController(IMediator mediator)
         {
-            _mediator = mediator;
+            _mediator = mediator;            
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           return View(await _mediator.Send(new GetTasksQuery()));           
+            await LoadCollections();
+            return View(await _mediator.Send(new GetTasksQuery()));           
         }
 
         [HttpGet]
-        public PartialViewResult Create()
+        public async Task<PartialViewResult> Create()
         {
+            await LoadCollections();
             return PartialView("Create", new CreateTaskCommand());
         }
 
@@ -39,8 +42,8 @@ namespace TaskTracker.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            await LoadCollections();
             TaskViewModel task = await _mediator.Send(new GetTaskQuery { Id = id });
-
             return PartialView(new UpdateTaskCommand { Id = id, ViewModel = task });
         }
 
@@ -51,9 +54,7 @@ namespace TaskTracker.Web.Controllers
             {
                 return BadRequest();
             }
-
             await _mediator.Send(command);
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -61,8 +62,13 @@ namespace TaskTracker.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteTaskCommand { Id = id });
-
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task LoadCollections()
+        {
+            List<ProjectViewModel>? projects = await _mediator.Send(new GetProjectsQuery());
+            ViewBag.Projects = projects.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() });
         }
     }
 }
