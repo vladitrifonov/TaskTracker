@@ -9,6 +9,6 @@ namespace TaskTracker.Contracts.Entities
         public DateTimeOffset StartDate { get; set; }
         public DateTimeOffset CompletionDate { get; set; }
         public ProjectStatus Status { get; set; }
-        public int Priority { get; set; }
+        public int Priority { get; set; }                
     }
 }
