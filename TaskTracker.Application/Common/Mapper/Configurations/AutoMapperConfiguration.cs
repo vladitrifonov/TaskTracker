@@ -12,7 +12,7 @@ namespace TaskTracker.Application.Common.Mapper.Configurations
         public AutoMapperConfiguration()
         {
             CreateMap<ProjectEntity, ProjectViewModel>()
-            .ForMember(x => x.Tasks, opt => opt.Ignore())
+            /*.ForMember(x => x.Tasks, opt => opt.Ignore())*/
             .ReverseMap()
             .ForMember(x => x.Id, opt => opt.Ignore());
 

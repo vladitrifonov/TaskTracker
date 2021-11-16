@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
@@ -29,11 +30,11 @@ namespace TaskTracker.Infrastructure.Services
             return await dbContext.Set<T>().ToListAsync();
         }
 
-        public Task<IEnumerable<T>> GetByPredicateAsync(Func<T, bool> predicaste)
+        public Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
         {
             using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
-            return Task.FromResult(dbContext.Set<T>().Where(predicaste).AsEnumerable());
+            return Task.FromResult(dbContext.Set<T>().Where(predicate).AsEnumerable());
         }
 
         public async Task<T> GetByIdAsync(int id)

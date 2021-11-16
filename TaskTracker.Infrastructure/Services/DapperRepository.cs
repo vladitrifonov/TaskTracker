@@ -8,6 +8,7 @@ using TaskTracker.Contracts.Entities;
 using TaskTracker.Domain.Contracts;
 using TaskTracker.Infrastructure.Dapper;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace TaskTracker.Infrastructure.Services
 {
@@ -30,10 +31,16 @@ namespace TaskTracker.Infrastructure.Services
             }              
         }
 
-        public Task<IEnumerable<T>> GetByPredicateAsync(Func<T, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        //works only witn one parameter (preferably Id)
+        //public async Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
+        //{
+        //    (string Name, object Value) properties = GetProperties(predicate);
+        //    using (IDbConnection db = new SqlConnection(_connectionString))
+        //    {
+        //        var test = await db.QueryAsync<T>(_dapperConfiguration.GetSelectByPredicateQuery(properties.Name), new { properties.Value });
+        //        return await db.QueryAsync<T>(_dapperConfiguration.GetSelectByPredicateQuery(properties.Name), new { properties.Value });
+        //    }
+        //}
 
         public async Task<T> GetByIdAsync(int id)
         {
@@ -72,6 +79,15 @@ namespace TaskTracker.Infrastructure.Services
             {
                 await db.ExecuteAsync(_dapperConfiguration.GetDeleteQuery(), new { entity.Id });
             }
+        }
+
+        private static (string Name,object Value) GetProperties(Expression<Func<T, bool>> predicate)
+        {
+            var body = predicate.Body as BinaryExpression;
+            var left = body?.Left as MemberExpression;
+            var right = body?.Right as ConstantExpression;
+            string name = left?.Member?.Name;        
+            return (name, right?.Value);
         }
     }
 }

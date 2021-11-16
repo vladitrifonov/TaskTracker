@@ -13,6 +13,6 @@ namespace TaskTracker.Application.Common.ViewModels
         public DateTimeOffset CompletionDate { get; set; }
         public ProjectStatus Status { get; set; }
         public int Priority { get; set; }
-        public IEnumerable<TaskEntity> Tasks = new List<TaskEntity>();
+        //public IEnumerable<TaskEntity> Tasks = new List<TaskEntity>();
     }
 }

@@ -5,8 +5,6 @@ namespace TaskTracker.Infrastructure.Dapper.Data
 {
     public abstract class CommonHelper
     {
-        protected abstract IEnumerable<string> GetFields();
-       
         //(*Field1*, *Field2*) VALUES(*@Value1*, *@Value2*)
         public string GenerateCreateValuesQuery()
         {
@@ -18,5 +16,7 @@ namespace TaskTracker.Infrastructure.Dapper.Data
         {
             return string.Join(", ", GetFields().Select(x => $"{x} = @{x}"));
         }
+
+        protected abstract IEnumerable<string> GetFields();
     }
 }

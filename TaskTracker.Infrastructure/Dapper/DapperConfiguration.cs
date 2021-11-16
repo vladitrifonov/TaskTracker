@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaskTracker.Infrastructure.Dapper.Data;
+﻿using TaskTracker.Infrastructure.Dapper.Data;
 
 namespace TaskTracker.Infrastructure.Dapper
 {
-    //public interface IDapperConfiguration
-    //{
-    //    string GetSelectQuery();
-    //    string GetSelectByIdQuery();
-    //    string GetCreateQuery();
-    //    string GetUpdateQuery();
-    //    string GetDeleteQuery();
-    //}
-
     public abstract class DapperConfiguration
     {
         private readonly string _table;
@@ -33,6 +19,11 @@ namespace TaskTracker.Infrastructure.Dapper
         public string GetSelectByIdQuery()
         {
             return $"SELECT * FROM {_table} WHERE Id = @id";
+        }
+
+        public string GetSelectByPredicateQuery(string name)
+        {
+            return $"SELECT * FROM {_table} WHERE {name} = @Value";
         }
 
         public string GetCreateQuery()
