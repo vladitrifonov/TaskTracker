@@ -21,10 +21,10 @@ namespace TaskTracker.Infrastructure.Dapper
             return $"SELECT * FROM {_table} WHERE Id = @id";
         }
 
-        public string GetSelectByPredicateQuery(string name)
-        {
-            return $"SELECT * FROM {_table} WHERE {name} = @Value";
-        }
+        //public string GetSelectByPredicateQuery(string name)
+        //{
+        //    return $"SELECT * FROM {_table} WHERE {name} = @Value";
+        //}
 
         public string GetCreateQuery()
         {
