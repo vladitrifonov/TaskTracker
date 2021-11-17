@@ -14,7 +14,6 @@ using TaskTracker.Application.Common.Logger;
 using TaskTracker.Infrastructure.Dapper;
 using TaskTracker.Infrastructure.Dapper.Data;
 using TaskTracker.Domain.Configuration.MongoDbConfiguration;
-using TaskTracker.Infrastructure.MongoDb.Entities;
 using TaskTracker.Infrastructure.MongoDb.Configuration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
