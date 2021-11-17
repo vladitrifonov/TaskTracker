@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Dapper\" />
     <Folder Include="EFCore\" />
+    <Folder Include="MongoDb\" />
   </ItemGroup>
 
 </Project>

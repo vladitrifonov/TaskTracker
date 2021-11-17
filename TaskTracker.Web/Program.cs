@@ -63,7 +63,6 @@ app.Run();
 
 void RegisterMongoDbDependencies(IServiceCollection services, IConfiguration configuration)
 {
-//    services.AddSingleton<IMongoDbSettings>(x => configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>());
     IMongoDbSettings mongoDbSettings = configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
     services.AddTransient<IRepository<ProjectEntity>>(x => new MongoDbRepository<ProjectEntity>(mongoDbSettings, new ProjectMongoDbConfiguration()));
     services.AddTransient<IRepository<TaskEntity>>(x => new MongoDbRepository<TaskEntity>(mongoDbSettings, new TaskMongoDbConfiguration()));
@@ -79,6 +78,6 @@ void RegisterEFDependencies(string connectionString)
 
 void RegisterDapperDependencies(string connectionString)
 {
-    builder.Services.AddTransient<IRepository<ProjectEntity>>(x => new DapperRepository<ProjectEntity>(connectionString, new ProjectConfiguration("Projects", new ProjectHelper())));
-    builder.Services.AddTransient<IRepository<TaskEntity>>(x => new DapperRepository<TaskEntity>(connectionString, new TaskConfiguration("Tasks", new TaskHelper())));
+    builder.Services.AddTransient<IRepository<ProjectEntity>>(x => new DapperRepository<ProjectEntity>(connectionString, new DapperConfiguration("Projects", new ProjectHelper())));
+    builder.Services.AddTransient<IRepository<TaskEntity>>(x => new DapperRepository<TaskEntity>(connectionString, new DapperConfiguration("Tasks", new TaskHelper())));
 }

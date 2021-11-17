@@ -2,7 +2,7 @@
 
 namespace TaskTracker.Infrastructure.Dapper
 {
-    public abstract class DapperConfiguration
+    public class DapperConfiguration
     {
         private readonly string _table;
         private readonly CommonHelper _helper;
