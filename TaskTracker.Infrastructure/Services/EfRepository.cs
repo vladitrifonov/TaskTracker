@@ -30,12 +30,12 @@ namespace TaskTracker.Infrastructure.Services
             return await dbContext.Set<T>().ToListAsync();
         }
 
-        public Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
-        {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
+        //public Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
+        //{
+        //    using TaskTrackerDbContext dbContext = _dbFactory.Create();
 
-            return Task.FromResult(dbContext.Set<T>().Where(predicate).AsEnumerable());
-        }
+        //    return Task.FromResult(dbContext.Set<T>().Where(predicate).AsEnumerable());
+        //}
 
         public async Task<T> GetByIdAsync(int id)
         {

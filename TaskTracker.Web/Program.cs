@@ -14,6 +14,8 @@ using TaskTracker.Application.Common.Logger;
 using TaskTracker.Infrastructure.Dapper;
 using TaskTracker.Infrastructure.Dapper.Data;
 using TaskTracker.Domain.Configuration.MongoDbConfiguration;
+using TaskTracker.Infrastructure.MongoDb.Entities;
+using TaskTracker.Infrastructure.MongoDb.Configuration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -62,10 +64,10 @@ app.Run();
 
 void RegisterMongoDbDependencies(IServiceCollection services, IConfiguration configuration)
 {
-    services.Configure<MongoDbSettings>(configuration.GetSection(nameof(MongoDbSettings)));
-
-    //services.AddSingleton<IMongoDbSettings>(serviceProvider =>
-    //    serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+//    services.AddSingleton<IMongoDbSettings>(x => configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>());
+    IMongoDbSettings mongoDbSettings = configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+    services.AddTransient<IRepository<ProjectEntity>>(x => new MongoDbRepository<ProjectEntity>(mongoDbSettings, new ProjectMongoDbConfiguration()));
+    services.AddTransient<IRepository<TaskEntity>>(x => new MongoDbRepository<TaskEntity>(mongoDbSettings, new TaskMongoDbConfiguration()));
 }
 
 void RegisterEFDependencies(string connectionString)

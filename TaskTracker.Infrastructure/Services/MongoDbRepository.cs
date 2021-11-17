@@ -1,59 +1,62 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TaskTracker.Contracts.Entities;
+using TaskTracker.Domain.Configuration.MongoDbConfiguration;
 using TaskTracker.Domain.Contracts;
+using TaskTracker.Infrastructure.MongoDb;
+using TaskTracker.Infrastructure.MongoDb.Configuration;
 
 namespace TaskTracker.Infrastructure.Services
 {
-    public class MongoDbRepository<T> : IRepository<T> where T : BaseEntity
+    public class MongoDbRepository<T> : IRepository<T> where T : BaseEntity/*, IDocument*/
     {
-        public async Task<IEnumerable<T>> GetAsync()
-        {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
+        private readonly IMongoCollection<T> _collection;
 
-            return await dbContext.Set<T>().ToListAsync();
+        public MongoDbRepository(IMongoDbSettings settings, IMongoDbConfiguration configuration)
+        {
+            var database = new MongoClient(settings.ConnectionString).GetDatabase(settings.DatabaseName);
+            _collection = database.GetCollection<T>(configuration.GetCollectionName());
+        }
+        public Task<IEnumerable<T>> GetAsync()
+        {
+            return Task.FromResult(_collection.AsQueryable().AsEnumerable());
         }
 
-        public Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
-        {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
-
-            return Task.FromResult(dbContext.Set<T>().Where(predicate).AsEnumerable());
-        }
+        //public async Task<IEnumerable<T>> GetByPredicateAsync(Expression<Func<T, bool>> predicate)
+        //{
+        //    var collection = await _collection.FindAsync(predicate);
+        //    return collection.ToEnumerable();
+        //}
 
         public async Task<T> GetByIdAsync(int id)
         {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
-            var qwer = await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
-            return await dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
+            IAsyncCursor<T> collection = await _collection.FindAsync(x => x.Id == id);
+            return await collection.FirstOrDefaultAsync();
         }
 
         public async Task<T> CreateAsync(T entity)
         {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
-
-            await dbContext.Set<T>().AddAsync(entity);
-            await dbContext.SaveChangesAsync();
-
+            await _collection.InsertOneAsync(entity);
             return entity;
         }
 
         public async Task<T> UpdateAsync(T entity)
         {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
-
-            dbContext.Entry(entity).State = EntityState.Modified;
-            await dbContext.SaveChangesAsync();
-
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq(doc => doc.Id, entity.Id);
+            await _collection.FindOneAndReplaceAsync(filter, entity);
             return entity;
         }
 
         public async Task DeleteAsync(T entity)
         {
-            using TaskTrackerDbContext dbContext = _dbFactory.Create();
-
-            dbContext.Set<T>().Remove(entity);
-            await dbContext.SaveChangesAsync();
-        }
+            //var objectId = new ObjectId(entity.Id);
+            //FilterDefinition<T> filter = Builders<T>.Filter.Eq(doc => doc.Id, objectId);
+            await _collection.FindOneAndDeleteAsync(x => x.Id == entity.Id);
+        }         
     }
 }
