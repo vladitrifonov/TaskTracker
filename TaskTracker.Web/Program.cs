@@ -13,18 +13,16 @@ using TaskTracker.Application.Common.Notifications;
 using TaskTracker.Application.Common.Logger;
 using TaskTracker.Infrastructure.Dapper;
 using TaskTracker.Infrastructure.Dapper.Data;
+using TaskTracker.Domain.Configuration.MongoDbConfiguration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => { options.UseMemberCasing(); });
 builder.Services.AddSwaggerGen();
 string? connectionString = builder.Configuration.GetConnectionString(nameof(TaskTrackerDbContext));
-//var taskTrackerDbContexOptionsBuilder = new DbContextOptionsBuilder<TaskTrackerDbContext>().UseSqlServer(connectionString);
-//builder.Services.AddTransient<IFactory<TaskTrackerDbContext>>(x => new DelegatingFactory<TaskTrackerDbContext>(() => new TaskTrackerDbContext(taskTrackerDbContexOptionsBuilder.Options, builder.Configuration)));
-//builder.Services.AddTransient<IRepository<ProjectEntity>, EfRepository<ProjectEntity>>();
-//builder.Services.AddTransient<IRepository<TaskEntity>, EfRepository<TaskEntity>>();
-builder.Services.AddTransient<IRepository<ProjectEntity>>(x => new DapperRepository<ProjectEntity>(connectionString, new ProjectConfiguration("Projects", new ProjectHelper())));
-builder.Services.AddTransient<IRepository<TaskEntity>>(x => new DapperRepository<TaskEntity>(connectionString, new TaskConfiguration("Tasks", new TaskHelper())));
+//RegisterEFDependencies(connectionString);
+//RegisterDapperDependencies(connectionString);
+RegisterMongoDbDependencies(builder.Services, builder.Configuration);
 builder.Services.AddTransient<TaskTracker.Domain.Contracts.ILogger, DefaultLogger>();
 builder.Services.AddTransient<SimpleLogger.ILogger, SimpleLogger.Logger>();
 builder.Services.AddTransient<SimpleLogger.IOutput>(provider => new SimpleLogger.FileOutput($"{Environment.CurrentDirectory}\\log.txt"));
@@ -61,3 +59,25 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Projects}/{action=Index}/{id?}");
 app.Run();
+
+void RegisterMongoDbDependencies(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<MongoDbSettings>(configuration.GetSection(nameof(MongoDbSettings)));
+
+    //services.AddSingleton<IMongoDbSettings>(serviceProvider =>
+    //    serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+}
+
+void RegisterEFDependencies(string connectionString)
+{
+    var taskTrackerDbContexOptionsBuilder = new DbContextOptionsBuilder<TaskTrackerDbContext>().UseSqlServer(connectionString);
+    builder.Services.AddTransient<IFactory<TaskTrackerDbContext>>(x => new DelegatingFactory<TaskTrackerDbContext>(() => new TaskTrackerDbContext(taskTrackerDbContexOptionsBuilder.Options, builder.Configuration)));
+    builder.Services.AddTransient<IRepository<ProjectEntity>, EfRepository<ProjectEntity>>();
+    builder.Services.AddTransient<IRepository<TaskEntity>, EfRepository<TaskEntity>>();
+}
+
+void RegisterDapperDependencies(string connectionString)
+{
+    builder.Services.AddTransient<IRepository<ProjectEntity>>(x => new DapperRepository<ProjectEntity>(connectionString, new ProjectConfiguration("Projects", new ProjectHelper())));
+    builder.Services.AddTransient<IRepository<TaskEntity>>(x => new DapperRepository<TaskEntity>(connectionString, new TaskConfiguration("Tasks", new TaskHelper())));
+}
