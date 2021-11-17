@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TaskTracker.Contracts.Entities;
 
-namespace TaskTracker.Infrastructure.EFCore.Configurations
+namespace TaskTracker.Infrastructure.EFCore.Configuration
 {
     public class TaskConfiguration : IEntityTypeConfiguration<TaskEntity>
     {
